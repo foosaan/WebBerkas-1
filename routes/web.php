@@ -67,10 +67,15 @@ Route::middleware('auth')->group(function () {
         Route::delete('/admin/users/{id}', [AdminUserController::class, 'destroyUser'])->name('admin.users.destroy');
     });
 
-    // ==================== STAFF ====================
-    Route::middleware('role:staff')->group(function () {
-        Route::get('/staff/dashboard', [StaffController::class, 'index'])->name('staff.dashboard');
-    });
+        // ==================== STAFF ====================
+        Route::middleware('role:staff')->group(function () {
+        Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+        Route::get('/staff/berkasmasuk', [StaffController::class, 'index'])->name('staff.berkasmasuk');
+        Route::get('/staff/berkasproses', [StaffController::class, 'berkasProses'])->name('staff.berkasproses');
+        Route::get('/staff/berkasselesai', [StaffController::class, 'berkasSelesai'])->name('staff.berkasselesai');
+        Route::get('/staff/berkasditolak', [StaffController::class, 'berkasDitolak'])->name('staff.berkasditolak');
+        Route::put('/staff/update-status/{id}/{type}', [StaffController::class, 'updateStatus'])->name('staff.updateStatus');
+        });
 
     // ==================== USER ====================
     Route::middleware('role:user')->group(function () {

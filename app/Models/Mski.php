@@ -15,5 +15,17 @@ class Mski extends Model
         'jenis_layanan',
         'keterangan',
         'file_path',
+        'status',
+        'staff_id'
     ];
+
+    public function staff()
+    {
+        return $this->belongsTo(User::class, 'staff_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_satker', 'nip');
+    }
 }
