@@ -37,6 +37,7 @@
                             <th>File</th>
                             <th>Tanggal</th>
                             <th>Status</th>
+                            <th>Alasan Penolakan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -55,27 +56,32 @@
                                 </td>
                                 <td>{{ $request->created_at->format('d/m/Y H:i') }}</td>
                                 <td>{{ ucfirst($request->status ?? '-') }}</td>
+                                <td>{{ $request->alasan_penolakan ?? '-' }}</td>
                                 <td>
                                     <form action="{{ route('staff.updateStatus', [$request->id, 'vera']) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+                                        <select name="status" class="form-control form-control-sm" onchange="toggleAlasan(this)">
                                             <option value="baru">Baru</option>
                                             <option value="diproses">Diproses</option>
                                             <option value="selesai">Selesai</option>
                                             <option value="ditolak" selected>Ditolak</option>
                                         </select>
+                                        <textarea name="alasan_penolakan" class="form-control mt-2 alasan-box"
+                                            style="display:block;" placeholder="Tuliskan alasan penolakan...">{{ $request->alasan_penolakan }}</textarea>
+                                        <button type="submit" class="btn btn-sm btn-primary mt-2">Simpan</button>
                                     </form>
                                 </td>
                             </tr>
                             @endif
                         @empty
-                            <tr><td colspan="8" class="text-center">Tidak ada data layanan Vera</td></tr>
+                            <tr><td colspan="9" class="text-center">Tidak ada data layanan Vera</td></tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
+
         @elseif($divisi === 'PD')
         <div class="tab-pane fade show active" id="pd" role="tabpanel">
             <div class="table-responsive">
@@ -89,6 +95,7 @@
                             <th>File</th>
                             <th>Tanggal</th>
                             <th>Status</th>
+                            <th>Alasan Penolakan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -107,27 +114,32 @@
                                 </td>
                                 <td>{{ $request->created_at->format('d/m/Y H:i') }}</td>
                                 <td>{{ ucfirst($request->status ?? '-') }}</td>
+                                <td>{{ $request->alasan_penolakan ?? '-' }}</td>
                                 <td>
                                     <form action="{{ route('staff.updateStatus', [$request->id, 'pd']) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+                                        <select name="status" class="form-control form-control-sm" onchange="toggleAlasan(this)">
                                             <option value="baru">Baru</option>
                                             <option value="diproses">Diproses</option>
                                             <option value="selesai">Selesai</option>
                                             <option value="ditolak" selected>Ditolak</option>
                                         </select>
+                                        <textarea name="alasan_penolakan" class="form-control mt-2 alasan-box"
+                                            style="display:block;" placeholder="Tuliskan alasan penolakan...">{{ $request->alasan_penolakan }}</textarea>
+                                        <button type="submit" class="btn btn-sm btn-primary mt-2">Simpan</button>
                                     </form>
                                 </td>
                             </tr>
                             @endif
                         @empty
-                            <tr><td colspan="8" class="text-center">Tidak ada data layanan PD</td></tr>
+                            <tr><td colspan="9" class="text-center">Tidak ada data layanan PD</td></tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
+
         @elseif($divisi === 'MSKI')
         <div class="tab-pane fade show active" id="mski" role="tabpanel">
             <div class="table-responsive">
@@ -141,6 +153,7 @@
                             <th>File</th>
                             <th>Tanggal</th>
                             <th>Status</th>
+                            <th>Alasan Penolakan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -159,27 +172,32 @@
                                 </td>
                                 <td>{{ $request->created_at->format('d/m/Y H:i') }}</td>
                                 <td>{{ ucfirst($request->status ?? '-') }}</td>
+                                <td>{{ $request->alasan_penolakan ?? '-' }}</td>
                                 <td>
                                     <form action="{{ route('staff.updateStatus', [$request->id, 'mski']) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+                                        <select name="status" class="form-control form-control-sm" onchange="toggleAlasan(this)">
                                             <option value="baru">Baru</option>
                                             <option value="diproses">Diproses</option>
                                             <option value="selesai">Selesai</option>
                                             <option value="ditolak" selected>Ditolak</option>
                                         </select>
+                                        <textarea name="alasan_penolakan" class="form-control mt-2 alasan-box"
+                                            style="display:block;" placeholder="Tuliskan alasan penolakan...">{{ $request->alasan_penolakan }}</textarea>
+                                        <button type="submit" class="btn btn-sm btn-primary mt-2">Simpan</button>
                                     </form>
                                 </td>
                             </tr>
                             @endif
                         @empty
-                            <tr><td colspan="8" class="text-center">Tidak ada data layanan MSKI</td></tr>
+                            <tr><td colspan="9" class="text-center">Tidak ada data layanan MSKI</td></tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
+
         @elseif($divisi === 'BANK')
         <div class="tab-pane fade show active" id="bank" role="tabpanel">
             <div class="table-responsive">
@@ -193,6 +211,7 @@
                             <th>File</th>
                             <th>Tanggal</th>
                             <th>Status</th>
+                            <th>Alasan Penolakan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -211,22 +230,26 @@
                                 </td>
                                 <td>{{ $request->created_at->format('d/m/Y H:i') }}</td>
                                 <td>{{ ucfirst($request->status ?? '-') }}</td>
+                                <td>{{ $request->alasan_penolakan ?? '-' }}</td>
                                 <td>
                                     <form action="{{ route('staff.updateStatus', [$request->id, 'bank']) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        <select name="status" class="form-control form-control-sm" onchange="this.form.submit()">
+                                        <select name="status" class="form-control form-control-sm" onchange="toggleAlasan(this)">
                                             <option value="baru">Baru</option>
                                             <option value="diproses">Diproses</option>
                                             <option value="selesai">Selesai</option>
                                             <option value="ditolak" selected>Ditolak</option>
                                         </select>
+                                        <textarea name="alasan_penolakan" class="form-control mt-2 alasan-box"
+                                            style="display:block;" placeholder="Tuliskan alasan penolakan...">{{ $request->alasan_penolakan }}</textarea>
+                                        <button type="submit" class="btn btn-sm btn-primary mt-2">Simpan</button>
                                     </form>
                                 </td>
                             </tr>
                             @endif
                         @empty
-                            <tr><td colspan="8" class="text-center">Tidak ada data layanan Bank</td></tr>
+                            <tr><td colspan="9" class="text-center">Tidak ada data layanan Bank</td></tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -236,4 +259,16 @@
 
     </div>
 </div>
+
+<script>
+function toggleAlasan(select){
+    let textarea = select.closest("form").querySelector(".alasan-box");
+    if(select.value === "ditolak"){
+        textarea.style.display = "block";
+    } else {
+        textarea.style.display = "none";
+        textarea.value = "";
+    }
+}
+</script>
 @endsection

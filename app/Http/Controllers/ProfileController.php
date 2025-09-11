@@ -11,9 +11,7 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
+    // ===== ADMIN/STAFF PROFILE =====
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -21,25 +19,93 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $input = $request->validated();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Update password hanya jika diisi
+        if (!empty($input['password'])) {
+            $input['password'] = bcrypt($input['password']);
+        } else {
+            unset($input['password']);
         }
 
-        $request->user()->save();
+        $user->fill($input);
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        // Reset email verification jika email berubah
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('success', 'Data Anda sudah terupdate.');
     }
 
-    /**
-     * Delete the user's account.
-     */
+    // ===== USER PROFILE =====
+    public function editUserProfile(Request $request): View
+    {
+        return view('user.profile.edit', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    public function updateUserProfile(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $user = $request->user();
+        $input = $request->validated();
+
+        if (!empty($input['password'])) {
+            $input['password'] = bcrypt($input['password']);
+        } else {
+            unset($input['password']);
+        }
+
+        $user->fill($input);
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+        return Redirect::route('user.profile.edit')->with('success', 'Data Anda sudah terupdate.');
+    }
+
+    // ===== STAFF PROFILE =====
+public function editStaffProfile(Request $request): View
+{
+    return view('staff.profile.edit', [
+        'user' => $request->user(),
+    ]);
+}
+
+public function updateStaffProfile(ProfileUpdateRequest $request): RedirectResponse
+{
+    $user = $request->user();
+    $input = $request->validated();
+
+    // Update password hanya jika diisi
+    if (!empty($input['password'])) {
+        $input['password'] = bcrypt($input['password']);
+    } else {
+        unset($input['password']);
+    }
+
+    $user->fill($input);
+
+    // Reset email verification jika email berubah
+    if ($user->isDirty('email')) {
+        $user->email_verified_at = null;
+    }
+
+    $user->save();
+
+    return Redirect::route('staff.profile.edit')->with('success', 'Data Anda sudah terupdate.');
+}
+
+    // ===== DELETE ACCOUNT =====
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [

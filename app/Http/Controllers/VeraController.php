@@ -56,6 +56,6 @@ class VeraController extends Controller
             'user_id'        => Auth::id(),
         ]);
 
-        return redirect()->back()->with('success', 'Layanan VERAberhasil dikirim.');
+        return redirect()->back()->with('success', 'Layanan VERA berhasil dikirim.');
     }
 }

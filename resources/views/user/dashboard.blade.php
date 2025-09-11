@@ -9,34 +9,33 @@
         </div>
         <div class="card-body p-3">
             <div class="user-profile-compact">
-    <div class="profile-item">
-        <span class="profile-label">ID Satker:</span>
-        <span class="profile-value">{{ Auth::user()->nip }}</span>
-    </div>
-    <div class="profile-item">
-        <span class="profile-label">Nama Petugas:</span>
-        <span class="profile-value">{{ Auth::user()->name }}</span>
-    </div>
-    <div class="profile-item">
-        <span class="profile-label">Satuan Kerja:</span>
-        <span class="profile-value">{{ Auth::user()->nama_satker ?? '-' }}</span>
-    </div>
-    <div class="profile-item">
-        <span class="profile-label">Email:</span>
-        <span class="profile-value">{{ Auth::user()->email }}</span>
-    </div>
-        </div>
-
+                <div class="profile-item">
+                    <span class="profile-label">ID Satker:</span>
+                    <span class="profile-value">{{ Auth::user()->nip }}</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Nama Petugas:</span>
+                    <span class="profile-value">{{ Auth::user()->name }}</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Satuan Kerja:</span>
+                    <span class="profile-value">{{ Auth::user()->nama_satker ?? '-' }}</span>
+                </div>
+                <div class="profile-item">
+                    <span class="profile-label">Email:</span>
+                    <span class="profile-value">{{ Auth::user()->email }}</span>
+                </div>
+            </div>
         </div>
     </div>
     
     <h2 class="mb-4">Dashboard Layanan</h2>
 
-     <!-- Filter -->
+    <!-- Filter -->
     <div class="row mb-3">
         <div class="col-md-3">
             <select class="form-control" id="filterStatus">
-                <option value="">Semua Berkas</option>
+                <option value="">Semua Status</option>
                 <option value="diterima">Diterima</option>
                 <option value="diproses">Diproses</option>
                 <option value="selesai">Selesai</option>
@@ -60,35 +59,25 @@
             </select>
         </div>
         <div class="col-md-3">
-            <button class="btn btn-primary btn-block" id="btnFilter">Search</button>
+            <input type="text" id="searchInput" class="form-control" placeholder="Cari No Berkas / File / Keterangan">
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-tabs" id="layananTabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="semua-tab" data-toggle="tab" href="#semua" role="tab">Semua</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="vera-tab" data-toggle="tab" href="#vera" role="tab">Layanan Vera</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="pd-tab" data-toggle="tab" href="#pd" role="tab">Layanan PD</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="mski-tab" data-toggle="tab" href="#mski" role="tab">Layanan MSKI</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="bank-tab" data-toggle="tab" href="#bank" role="tab">Layanan Bank</a>
-                </li>
+                <li class="nav-item"><a class="nav-link active" id="semua-tab" data-toggle="tab" href="#semua" role="tab">Semua</a></li>
+                <li class="nav-item"><a class="nav-link" id="vera-tab" data-toggle="tab" href="#vera" role="tab">Layanan Vera</a></li>
+                <li class="nav-item"><a class="nav-link" id="pd-tab" data-toggle="tab" href="#pd" role="tab">Layanan PD</a></li>
+                <li class="nav-item"><a class="nav-link" id="mski-tab" data-toggle="tab" href="#mski" role="tab">Layanan MSKI</a></li>
+                <li class="nav-item"><a class="nav-link" id="bank-tab" data-toggle="tab" href="#bank" role="tab">Layanan Bank</a></li>
             </ul>
 
             <div class="tab-content p-3 border border-top-0 rounded-bottom" id="layananTabsContent">
                 <!-- Tab Semua -->
                 <div class="tab-pane fade show active" id="semua" role="tabpanel">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped filterable-table">
                             <thead>
                                 <tr>
                                     <th>No Berkas</th>
@@ -97,6 +86,7 @@
                                     <th>File</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
+                                    <th>Alasan Penolakan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,16 +98,15 @@
                                         <td>
                                             @if($request->file_path)
                                                 <a href="{{ asset('storage/'.$request->file_path) }}" target="_blank">Lihat File</a>
-                                            @else
-                                                -
-                                            @endif
+                                            @else - @endif
                                         </td>
                                         <td>{{ $request->created_at->format('d/m/Y H:i') }}</td>
-                                         <td>{{ $request->status ?? '-' }}</td>
+                                        <td>{{ $request->status ? ucfirst($request->status) : '-' }}</td>
+                                        <td>{{ $request->alasan_penolakan ?? '-' }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Tidak ada data layanan</td>
+                                        <td colspan="7" class="text-center">Tidak ada data layanan</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -128,7 +117,7 @@
                 <!-- Tab Vera -->
                 <div class="tab-pane fade" id="vera" role="tabpanel">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped filterable-table">
                             <thead>
                                 <tr>
                                     <th>No Berkas</th>
@@ -137,6 +126,7 @@
                                     <th>File</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
+                                    <th>Alasan Penolakan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -148,16 +138,15 @@
                                         <td>
                                             @if($request->file_path)
                                                 <a href="{{ asset('storage/'.$request->file_path) }}" target="_blank">Lihat File</a>
-                                            @else
-                                                -
-                                            @endif
+                                            @else - @endif
                                         </td>
                                         <td>{{ $request->created_at->format('d/m/Y H:i') }}</td>
-                                        <td>{{ $request->status ?? '-' }}</td>
+                                        <td>{{ $request->status ? ucfirst($request->status) : '-' }}</td>
+                                        <td>{{ $request->alasan_penolakan ?? '-' }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Tidak ada data layanan Vera</td>
+                                        <td colspan="7" class="text-center">Tidak ada data layanan Vera</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -168,7 +157,7 @@
                 <!-- Tab PD -->
                 <div class="tab-pane fade" id="pd" role="tabpanel">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped filterable-table">
                             <thead>
                                 <tr>
                                     <th>No Berkas</th>
@@ -177,6 +166,7 @@
                                     <th>File</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
+                                    <th>Alasan Penolakan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -188,16 +178,15 @@
                                         <td>
                                             @if($request->file_path)
                                                 <a href="{{ asset('storage/'.$request->file_path) }}" target="_blank">Lihat File</a>
-                                            @else
-                                                -
-                                            @endif
+                                            @else - @endif
                                         </td>
                                         <td>{{ $request->created_at->format('d/m/Y H:i') }}</td>
-                                        <td>{{ $request->status ?? '-' }}</td>
+                                        <td>{{ $request->status ? ucfirst($request->status) : '-' }}</td>
+                                        <td>{{ $request->alasan_penolakan ?? '-' }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Tidak ada data layanan PD</td>
+                                        <td colspan="7" class="text-center">Tidak ada data layanan PD</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -208,7 +197,7 @@
                 <!-- Tab MSKI -->
                 <div class="tab-pane fade" id="mski" role="tabpanel">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped filterable-table">
                             <thead>
                                 <tr>
                                     <th>No Berkas</th>
@@ -217,6 +206,7 @@
                                     <th>File</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
+                                    <th>Alasan Penolakan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -228,16 +218,15 @@
                                         <td>
                                             @if($request->file_path)
                                                 <a href="{{ asset('storage/'.$request->file_path) }}" target="_blank">Lihat File</a>
-                                            @else
-                                                -
-                                            @endif
+                                            @else - @endif
                                         </td>
                                         <td>{{ $request->created_at->format('d/m/Y H:i') }}</td>
-                                        <td>{{ $request->status ?? '-' }}</td>
+                                        <td>{{ $request->status ? ucfirst($request->status) : '-' }}</td>
+                                        <td>{{ $request->alasan_penolakan ?? '-' }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Tidak ada data layanan MSKI</td>
+                                        <td colspan="7" class="text-center">Tidak ada data layanan MSKI</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -248,7 +237,7 @@
                 <!-- Tab Bank -->
                 <div class="tab-pane fade" id="bank" role="tabpanel">
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped filterable-table">
                             <thead>
                                 <tr>
                                     <th>No Berkas</th>
@@ -257,6 +246,7 @@
                                     <th>File</th>
                                     <th>Tanggal</th>
                                     <th>Status</th>
+                                    <th>Alasan Penolakan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -268,107 +258,80 @@
                                         <td>
                                             @if($request->file_path)
                                                 <a href="{{ asset('storage/'.$request->file_path) }}" target="_blank">Lihat File</a>
-                                            @else
-                                                -
-                                            @endif
+                                            @else - @endif
                                         </td>
                                         <td>{{ $request->created_at->format('d/m/Y H:i') }}</td>
-                                        <td>{{ $request->status ?? '-' }}</td>
+                                        <td>{{ $request->status ? ucfirst($request->status) : '-' }}</td>
+                                        <td>{{ $request->alasan_penolakan ?? '-' }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Tidak ada data layanan Bank</td>
+                                        <td colspan="7" class="text-center">Tidak ada data layanan Bank</td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
-@endsection
 
-@section('styles')
-<style>
-    .user-profile-compact {
-        line-height: 1.6;
-    }
-    .profile-item {
-        margin-bottom: 0.3rem;
-        display: flex;
-        align-items: center;
-    }
-    .profile-label {
-        font-weight: bold;
-        min-width: 80px;
-        display: inline-block;
-        margin-right: 0.5rem;
-    }
-    .profile-value {
-        flex: 1;
-    }
-    .card-body.p-3 {
-        padding: 1rem !important;
-    }
-    .card-header {
-        font-weight: bold;
-        padding: 0.75rem 1rem;
-    }
-    .table th {
-        white-space: nowrap;
-    }
-</style>
-@endsection
-
-@section('scripts')
+{{-- Script Filter --}}
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const filterStatus = document.getElementById('filterStatus');
-        const filterBulan = document.getElementById('filterBulan');
-        const filterTahun = document.getElementById('filterTahun');
-        const btnFilter = document.getElementById('btnFilter');
+    function applyFilters() {
+        const statusFilter = document.getElementById('filterStatus').value.toLowerCase();
+        const bulanFilter = document.getElementById('filterBulan').value;
+        const tahunFilter = document.getElementById('filterTahun').value;
+        const searchQuery = document.getElementById('searchInput').value.toLowerCase();
 
-        btnFilter.addEventListener('click', function (e) {
-            e.preventDefault();
+        document.querySelectorAll('.filterable-table tbody tr').forEach(row => {
+            const noBerkas = row.cells[0]?.textContent.trim().toLowerCase();
+            const jenis = row.cells[1]?.textContent.trim().toLowerCase();
+            const ket = row.cells[2]?.textContent.trim().toLowerCase();
+            const file = row.cells[3]?.textContent.trim().toLowerCase();
+            const tanggal = row.cells[4]?.textContent.trim();
+            const status = row.cells[5]?.textContent.trim().toLowerCase();
 
-            const status = filterStatus.value.trim().toLowerCase();
-            const bulan = filterBulan.value.trim();
-            const tahun = filterTahun.value.trim();
+            let show = true;
 
-            const rows = document.querySelectorAll('#semua tbody tr');
+            // Filter status
+            if (statusFilter && status !== statusFilter) {
+                show = false;
+            }
 
-            rows.forEach(row => {
-                const tglText = row.cells[4]?.textContent.trim(); // kolom Tanggal
-                const rowStatus = row.cells[5]?.textContent.trim().toLowerCase(); // kolom Status
+            // Filter bulan & tahun
+            if (tanggal) {
+                const parts = tanggal.split(' ')[0].split('/'); // dd/mm/yyyy
+                const bulan = parts[1];
+                const tahun = parts[2];
 
-                let matchStatus = true;
-                let matchBulan = true;
-                let matchTahun = true;
-
-                if (status) {
-                    matchStatus = rowStatus.includes(status);
+                if (bulanFilter && bulan !== bulanFilter) {
+                    show = false;
                 }
-
-                if (tglText) {
-                    const parts = tglText.split(/[\/\s:]+/); // [dd, mm, yyyy, HH, ii]
-                    const tglMonth = parts[1]; // format bulan = 2 digit
-                    const tglYear = parts[2]; // format tahun = 4 digit
-
-                    if (bulan) {
-                        matchBulan = bulan === tglMonth;
-                    }
-
-                    if (tahun) {
-                        matchTahun = tahun === tglYear;
-                    }
+                if (tahunFilter && tahun !== tahunFilter) {
+                    show = false;
                 }
+            }
 
-                const isMatch = matchStatus && matchBulan && matchTahun;
-                row.style.display = isMatch ? '' : 'none';
-            });
+            // Filter search (no berkas, keterangan, file, jenis)
+            if (searchQuery) {
+                const text = (noBerkas + ' ' + ket + ' ' + file + ' ' + jenis);
+                if (!text.includes(searchQuery)) {
+                    show = false;
+                }
+            }
+
+            row.style.display = show ? '' : 'none';
         });
+    }
+
+    document.querySelectorAll('#filterStatus, #filterBulan, #filterTahun').forEach(el => {
+        el.addEventListener('change', applyFilters);
     });
+
+    document.getElementById('searchInput').addEventListener('keyup', applyFilters);
 </script>
 @endsection

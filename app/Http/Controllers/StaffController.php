@@ -51,13 +51,26 @@ class StaffController extends Controller
         $mskiCount = Mski::count();
         $bankCount = Bank::count();
 
+        // Daftar tahun unik untuk filter
+        $tahunList = $allRequests->pluck('created_at')
+            ->map(fn($date) => $date->format('Y'))
+            ->unique()
+            ->sortDesc()
+            ->values();
+
         // Kirim ke view
         return view('staff.dashboard', compact(
             'veraCount',
             'pdCount',
             'mskiCount',
             'bankCount',
-            'paginatedRequests'
+            'paginatedRequests',
+            'allRequests',
+            'veraRequests',
+            'pdRequests',
+            'mskiRequests',
+            'bankRequests',
+            'tahunList'
         ));
     }
 
@@ -71,40 +84,46 @@ class StaffController extends Controller
         $mskiRequests = $divisi === 'MSKI' ? Mski::latest()->get() : collect();
         $bankRequests = $divisi === 'BANK' ? Bank::latest()->get() : collect();
 
+        // Gabungkan semua untuk filter/search (opsional)
+        $allRequests = $veraRequests->concat($pdRequests)->concat($mskiRequests)->concat($bankRequests);
+
+        // Daftar tahun unik untuk filter
+        $tahunList = $allRequests->pluck('created_at')
+            ->map(fn($date) => $date->format('Y'))
+            ->unique()
+            ->sortDesc()
+            ->values();
+
         return view('staff.berkasmasuk', compact(
             'veraRequests',
             'pdRequests',
             'mskiRequests',
-            'bankRequests'
+            'bankRequests',
+            'allRequests',
+            'tahunList'
         ));
     }
 
     // ==================== UPDATE STATUS ====================
-    public function updateStatus($id, $type, Request $request)
+    public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:baru,diproses,selesai,ditolak',
+            'status' => 'required|string|in:diterima,diproses,selesai,ditolak',
+            'alasan_penolakan' => 'nullable|string|max:255',
         ]);
 
-        $model = match ($type) {
-            'vera' => Vera::class,
-            'pd'   => LayananPd::class,
-            'mski' => Mski::class,
-            'bank' => Bank::class,
-            default => null,
-        };
+        $requestData = Vera::findOrFail($id);
+        $requestData->status = $request->status;
 
-        if (!$model) {
-            return redirect()->back()->with('error', 'Jenis layanan tidak valid.');
+        if ($request->status === 'ditolak') {
+            $requestData->alasan_penolakan = $request->alasan_penolakan;
+        } else {
+            $requestData->alasan_penolakan = null;
         }
 
-        $layanan = $model::findOrFail($id);
-        $layanan->update([
-            'status'   => $request->status,
-            'staff_id' => Auth::id(),
-        ]);
+        $requestData->save();
 
-        return redirect()->back()->with('success', 'Status layanan berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Status berhasil diperbarui.');
     }
 
     // ==================== BERKAS DIPROSES ====================

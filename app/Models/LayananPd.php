@@ -18,7 +18,8 @@ class LayananPd extends Model
         'keterangan',
         'file_path',
         'status',
-        'staff_id'
+        'staff_id',
+        'alasan_penolakan'
     ];
 
     public function staff()

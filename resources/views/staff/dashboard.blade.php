@@ -63,6 +63,41 @@
         </div>
     </div>
 
+    <!-- Filter -->
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <select class="form-control" id="filterStatus">
+                <option value="">Semua Status</option>
+                <option value="baru">Baru</option>
+                <option value="diproses">Diproses</option>
+                <option value="selesai">Selesai</option>
+                <option value="ditolak">Ditolak</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" id="filterBulan">
+                <option value="">Semua Bulan</option>
+                @for ($m = 1; $m <= 12; $m++)
+                    <option value="{{ str_pad($m, 2, '0', STR_PAD_LEFT) }}">{{ DateTime::createFromFormat('!m', $m)->format('F') }}</option>
+                @endfor
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" id="filterTahun">
+                <option value="">Semua Tahun</option>
+                @php
+                    $tahunList = $paginatedRequests->pluck('created_at')->map(fn($d) => $d->format('Y'))->unique()->sortDesc();
+                @endphp
+                @foreach ($tahunList as $tahun)
+                    <option value="{{ $tahun }}">{{ $tahun }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="text" id="searchInput" class="form-control" placeholder="Cari No Berkas / Layanan / Keterangan">
+        </div>
+    </div>
+
     <!-- Semua Data Layanan Tabel -->
     <div class="card mt-4">
         <div class="card-header bg-info text-white">
@@ -70,11 +105,10 @@
         </div>
         <div class="card-body p-3">
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" id="layananTable">
                     <thead>
                         <tr>
                             <th>No Berkas</th>
-                            <th>Nama User</th>
                             <th>Layanan</th>
                             <th>Keterangan</th>
                             <th>Status</th>
@@ -85,7 +119,6 @@
                         @forelse($paginatedRequests as $request)
                         <tr>
                             <td>{{ $request->no_berkas }}</td>
-                            <td>{{ $request->user->name ?? '-' }}</td>
                             <td>{{ $request->layanan_type }} - {{ $request->jenis_layanan ?? '-' }}</td>
                             <td>{{ $request->keterangan ?? '-' }}</td>
                             <td>{{ ucfirst($request->status ?? '-') }}</td>
@@ -93,7 +126,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="6" class="text-center">Tidak ada data layanan</td>
+                            <td colspan="5" class="text-center">Tidak ada data layanan</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -107,4 +140,47 @@
         </div>
     </div>
 </div>
+
+{{-- Script Filter --}}
+<script>
+    function applyFilters() {
+        const statusFilter = document.getElementById('filterStatus').value.toLowerCase();
+        const bulanFilter = document.getElementById('filterBulan').value;
+        const tahunFilter = document.getElementById('filterTahun').value;
+        const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+
+        document.querySelectorAll('#layananTable tbody tr').forEach(row => {
+            const noBerkas = row.cells[0]?.textContent.trim().toLowerCase();
+            const layanan = row.cells[1]?.textContent.trim().toLowerCase();
+            const ket = row.cells[2]?.textContent.trim().toLowerCase();
+            const status = row.cells[3]?.textContent.trim().toLowerCase();
+            const tanggal = row.cells[4]?.textContent.trim();
+
+            let show = true;
+
+            if (statusFilter && status !== statusFilter) show = false;
+
+            if (tanggal) {
+                const parts = tanggal.split(' ')[0].split('/'); // dd/mm/yyyy
+                const bulan = parts[1];
+                const tahun = parts[2];
+                if (bulanFilter && bulan !== bulanFilter) show = false;
+                if (tahunFilter && tahun !== tahunFilter) show = false;
+            }
+
+            if (searchQuery) {
+                const text = (noBerkas + ' ' + layanan + ' ' + ket);
+                if (!text.includes(searchQuery)) show = false;
+            }
+
+            row.style.display = show ? '' : 'none';
+        });
+    }
+
+    document.querySelectorAll('#filterStatus, #filterBulan, #filterTahun').forEach(el => {
+        el.addEventListener('change', applyFilters);
+    });
+
+    document.getElementById('searchInput').addEventListener('keyup', applyFilters);
+</script>
 @endsection
