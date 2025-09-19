@@ -15,24 +15,20 @@ class StaffController extends Controller
     // ==================== DASHBOARD ====================
     public function dashboard()
     {
-        // Ambil semua data dari semua divisi
         $veraRequests = Vera::latest()->get();
         $pdRequests   = LayananPd::latest()->get();
         $mskiRequests = Mski::latest()->get();
         $bankRequests = Bank::latest()->get();
 
-        // Tambahkan property layanan_type agar bisa ditampilkan di tabel
-        $veraRequests->each(fn($r) => $r->layanan_type = 'Vera');
+        $veraRequests->each(fn($r) => $r->layanan_type = 'VERA');
         $pdRequests->each(fn($r) => $r->layanan_type = 'PD');
         $mskiRequests->each(fn($r) => $r->layanan_type = 'MSKI');
-        $bankRequests->each(fn($r) => $r->layanan_type = 'Bank');
+        $bankRequests->each(fn($r) => $r->layanan_type = 'BANK');
 
-        // Gabungkan semua data
         $allRequests = $veraRequests->concat($pdRequests)
                                     ->concat($mskiRequests)
                                     ->concat($bankRequests);
 
-        // Pagination 5 data per halaman
         $perPage = 5;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems = $allRequests->slice(($currentPage - 1) * $perPage, $perPage)->values();
@@ -45,20 +41,17 @@ class StaffController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        // Card counts
         $veraCount = Vera::count();
         $pdCount   = LayananPd::count();
         $mskiCount = Mski::count();
         $bankCount = Bank::count();
 
-        // Daftar tahun unik untuk filter
         $tahunList = $allRequests->pluck('created_at')
             ->map(fn($date) => $date->format('Y'))
             ->unique()
             ->sortDesc()
             ->values();
 
-        // Kirim ke view
         return view('staff.dashboard', compact(
             'veraCount',
             'pdCount',
@@ -84,10 +77,8 @@ class StaffController extends Controller
         $mskiRequests = $divisi === 'MSKI' ? Mski::latest()->get() : collect();
         $bankRequests = $divisi === 'BANK' ? Bank::latest()->get() : collect();
 
-        // Gabungkan semua untuk filter/search (opsional)
         $allRequests = $veraRequests->concat($pdRequests)->concat($mskiRequests)->concat($bankRequests);
 
-        // Daftar tahun unik untuk filter
         $tahunList = $allRequests->pluck('created_at')
             ->map(fn($date) => $date->format('Y'))
             ->unique()
@@ -105,14 +96,31 @@ class StaffController extends Controller
     }
 
     // ==================== UPDATE STATUS ====================
-    public function updateStatus(Request $request, $id)
+    public function updateStatus(Request $request, $id, $layanan_type)
     {
         $request->validate([
-            'status' => 'required|string|in:diterima,diproses,selesai,ditolak',
+            'status' => 'required|string|in:baru,diproses,selesai,ditolak',
             'alasan_penolakan' => 'nullable|string|max:255',
         ]);
 
-        $requestData = Vera::findOrFail($id);
+        // Tentukan model berdasarkan jenis layanan
+        switch (strtolower($layanan_type)) {
+            case 'vera':
+                $requestData = Vera::findOrFail($id);
+                break;
+            case 'pd':
+                $requestData = LayananPd::findOrFail($id);
+                break;
+            case 'mski':
+                $requestData = Mski::findOrFail($id);
+                break;
+            case 'bank':
+                $requestData = Bank::findOrFail($id);
+                break;
+            default:
+                return redirect()->back()->with('error', 'Jenis layanan tidak valid.');
+        }
+
         $requestData->status = $request->status;
 
         if ($request->status === 'ditolak') {

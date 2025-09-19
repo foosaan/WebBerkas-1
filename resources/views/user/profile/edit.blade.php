@@ -1,4 +1,4 @@
-@extends('staff.app')
+@extends('user.app')
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -18,7 +18,7 @@
             <h5 class="card-title">Profile Information</h5>
             <p class="text-muted">Update your account's profile information, email, NIP, or password (optional).</p>
 
-            <form method="post" action="{{ route('staff.profile.update') }}">
+            <form method="post" action="{{ route('user.profile.update') }}">
                 @csrf
                 @method('patch')
 
@@ -54,7 +54,7 @@
 
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-success">Save</button>
-                    <a href="{{ route('staff.dashboard') }}" class="btn btn-secondary ms-2">Kembali</a>
+                    <a href="{{ route('user.dashboard') }}" class="btn btn-secondary ms-2">Kembali</a>
                 </div>
             </form>
         </div>

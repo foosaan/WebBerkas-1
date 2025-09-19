@@ -28,21 +28,22 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Nama</label>
-                        <input name="name" type="text" class="form-control" placeholder="Nama" value="{{ old('name') }}"
-                            required>
+                        <input name="name" type="text" class="form-control" placeholder="Nama"
+                               value="{{ old('name') }}" required>
                         @error('name') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Email</label>
-                        <input name="email" type="email" class="form-control" placeholder="Email" value="{{ old('email') }}"
-                            required>
+                        <input name="email" type="email" class="form-control" placeholder="Email"
+                               value="{{ old('email') }}" required>
                         @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label fw-semibold">NIP</label>
-                        <input name="nip" type="text" class="form-control" placeholder="NIP" value="{{ old('nip') }}">
+                        <input name="nip" type="text" class="form-control" placeholder="NIP"
+                               value="{{ old('nip') }}">
                         @error('nip') <small class="text-danger">{{ $message }}</small> @enderror
                     </div>
 
@@ -51,11 +52,9 @@
                         <select name="divisi" class="form-select" required>
                             <option value="" disabled selected>-- Pilih Divisi --</option>
                             @foreach ($divisiList as $divisi)
-                                @if (!in_array($divisi, $usedDivisi))
-                                    <option value="{{ $divisi }}" {{ old('divisi') == $divisi ? 'selected' : '' }}>
-                                        {{ $divisi }}
-                                    </option>
-                                @endif
+                                <option value="{{ $divisi }}" {{ old('divisi') == $divisi ? 'selected' : '' }}>
+                                    {{ $divisi }}
+                                </option>
                             @endforeach
                         </select>
                         @error('divisi') <small class="text-danger">{{ $message }}</small> @enderror
@@ -70,7 +69,7 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Konfirmasi Password</label>
                         <input type="password" name="password_confirmation" class="form-control"
-                            placeholder="Konfirmasi Password" required>
+                               placeholder="Konfirmasi Password" required>
                     </div>
 
                     <div class="d-flex justify-content-between">

@@ -29,19 +29,22 @@
 
             <div class="mb-3">
                 <label class="form-label">Nama</label>
-                <input type="text" name="name" class="form-control" required value="{{ old('name', $staff->name) }}">
+                <input type="text" name="name" class="form-control"
+                       required value="{{ old('name', $staff->name) }}">
                 @error('name') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" required value="{{ old('email', $staff->email) }}">
+                <input type="email" name="email" class="form-control"
+                       required value="{{ old('email', $staff->email) }}">
                 @error('email') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label">NIP</label>
-                <input type="text" name="nip" class="form-control" value="{{ old('nip', $staff->nip) }}">
+                <input type="text" name="nip" class="form-control"
+                       value="{{ old('nip', $staff->nip) }}">
                 @error('nip') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
 
@@ -50,11 +53,9 @@
                 <select name="divisi" class="form-select" required>
                     <option value="" disabled>-- Pilih Divisi --</option>
                     @foreach ($divisiList as $divisi)
-                        @if (!in_array($divisi, $usedDivisi) || $divisi == $staff->divisi)
-                            <option value="{{ $divisi }}" {{ (old('divisi', $staff->divisi) == $divisi) ? 'selected' : '' }}>
-                                {{ $divisi }}
-                            </option>
-                        @endif
+                        <option value="{{ $divisi }}" {{ old('divisi', $staff->divisi) == $divisi ? 'selected' : '' }}>
+                            {{ $divisi }}
+                        </option>
                     @endforeach
                 </select>
                 @error('divisi') <small class="text-danger">{{ $message }}</small> @enderror
@@ -62,15 +63,15 @@
 
             <div class="mb-3">
                 <label class="form-label">Password baru (opsional)</label>
-                <input type="password" name="password" class="form-control" autocomplete="new-password"
-                    placeholder="Password baru (opsional)">
+                <input type="password" name="password" class="form-control"
+                       autocomplete="new-password" placeholder="Password baru (opsional)">
                 @error('password') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Konfirmasi Password</label>
-                <input type="password" name="password_confirmation" class="form-control" autocomplete="new-password"
-                    placeholder="Konfirmasi Password">
+                <input type="password" name="password_confirmation" class="form-control"
+                       autocomplete="new-password" placeholder="Konfirmasi Password">
             </div>
 
             <div class="d-flex justify-content-between">

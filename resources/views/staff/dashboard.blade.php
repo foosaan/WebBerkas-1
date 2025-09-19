@@ -10,21 +10,26 @@
             <h5 class="mb-0">Profil Staff</h5>
         </div>
         <div class="card-body p-3">
-            <div class="user-profile-compact">
-                <div class="profile-item">
-                    <span class="profile-label">ID Staff:</span>
-                    <span class="profile-value">{{ Auth::user()->nip }}</span>
-                </div>
-                <div class="profile-item">
-                    <span class="profile-label">Nama:</span>
-                    <span class="profile-value">{{ Auth::user()->name }}</span>
-                </div>
-                <div class="profile-item">
-                    <span class="profile-label">Email:</span>
-                    <span class="profile-value">{{ Auth::user()->email }}</span>
-                </div>
-            </div>
+    <div class="user-profile-compact">
+        <div class="profile-item">
+            <span class="profile-label">ID Staff:</span>
+            <span class="profile-value">{{ Auth::user()->nip }}</span>
         </div>
+        <div class="profile-item">
+            <span class="profile-label">Nama:</span>
+            <span class="profile-value">{{ Auth::user()->name }}</span>
+        </div>
+        <div class="profile-item">
+            <span class="profile-label">Email:</span>
+            <span class="profile-value">{{ Auth::user()->email }}</span>
+        </div>
+        <div class="profile-item">
+            <span class="profile-label">Divisi:</span>
+            <span class="profile-value">{{ Auth::user()->divisi }}</span>
+        </div>
+    </div>
+</div>
+
     </div>
 
     <!-- Cards Total Layanan -->

@@ -26,7 +26,7 @@ class UserController extends Controller
         $allRequests = new Collection();
 
         $veraRequests->each(function ($item) use ($allRequests) {
-            $item->layanan_type = 'Vera';
+            $item->layanan_type = 'VERA';
             $allRequests->push($item);
         });
 
@@ -41,7 +41,7 @@ class UserController extends Controller
         });
 
         $bankRequests->each(function ($item) use ($allRequests) {
-            $item->layanan_type = 'Bank';
+            $item->layanan_type = 'BANK';
             $allRequests->push($item);
         });
 

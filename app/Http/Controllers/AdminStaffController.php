@@ -9,111 +9,106 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminStaffController extends Controller
 {
-    // Daftar divisi staff tetap
-    private $divisiList = ['VERA', 'BANK', 'MSKI', 'PD', 'UMUM'];
+    private $divisiList = [
+        'MSKI',
+        'VERA',
+        'BANK',
+        'PD',
+        'UMUM',
+    ];
 
     public function index()
     {
         $staffs = User::where('role', 'staff')->get();
-        return view('admin.staffs.index', compact('staffs'));
+return view('admin.staffs.index', compact('staffs'));
+
     }
 
     public function create()
     {
         $divisiList = $this->divisiList;
-
-        // Ambil semua divisi yang sudah dipakai oleh staff
-        $usedDivisi = User::where('role', 'staff')->pluck('divisi')->toArray();
-
-        return view('admin.staffs.create', compact('divisiList', 'usedDivisi'));
+        return view('admin.staffs.create', compact('divisiList'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'nip' => 'required|string',
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email'),
+            ],
+            'nip' => [
+                'required',
+                'string',
+                Rule::unique('users', 'nip'),
+            ],
             'divisi' => [
                 'required',
                 Rule::in($this->divisiList),
-                Rule::unique('users')->where(fn($q) => $q->where('role', 'staff'))
             ],
             'password' => 'required|string|min:6|confirmed',
         ]);
 
         User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'nip' => $request->nip,
-            'divisi' => $request->divisi,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'nip' => $validated['nip'],
+            'divisi' => $validated['divisi'],
             'role' => 'staff',
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($validated['password']),
         ]);
 
-        return redirect()->route('admin.staffs.index')->with('success', 'Staff berhasil ditambahkan');
+        return redirect()->route('admin.staffs.index')->with('success', 'Staff berhasil ditambahkan.');
     }
 
     public function edit(User $staff)
     {
-        if ($staff->role !== 'staff') {
-            abort(404);
-        }
-
         $divisiList = $this->divisiList;
-        $usedDivisi = User::where('role', 'staff')
-            ->where('id', '!=', $staff->id)
-            ->pluck('divisi')
-            ->toArray();
-
-        return view('admin.staffs.edit', compact('staff', 'divisiList', 'usedDivisi'));
+        return view('admin.staffs.edit', compact('staff', 'divisiList'));
     }
 
     public function update(Request $request, User $staff)
     {
-        if ($staff->role !== 'staff') {
-            abort(404);
-        }
-
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users')->ignore($staff->id),
+                'max:255',
+                Rule::unique('users', 'email')->ignore($staff->id),
             ],
-            'nip' => 'required|string',
+            'nip' => [
+                'required',
+                'string',
+                Rule::unique('users', 'nip')->ignore($staff->id),
+            ],
             'divisi' => [
                 'required',
                 Rule::in($this->divisiList),
-                Rule::unique('users')
-                    ->ignore($staff->id)
-                    ->where(fn($q) => $q->where('role', 'staff'))
             ],
             'password' => 'nullable|string|min:6|confirmed',
         ]);
 
-        $staff->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'nip' => $request->nip,
-            'divisi' => $request->divisi,
-            'role' => 'staff',
-            'password' => $request->password
-                ? Hash::make($request->password)
-                : $staff->password,
-        ]);
+        $staff->name = $validated['name'];
+        $staff->email = $validated['email'];
+        $staff->nip = $validated['nip'];
+        $staff->divisi = $validated['divisi'];
 
-        return redirect()->route('admin.staffs.index')->with('success', 'Staff berhasil diperbarui');
+        if (!empty($validated['password'])) {
+            $staff->password = Hash::make($validated['password']);
+        }
+
+        $staff->save();
+
+        return redirect()->route('admin.staffs.index')->with('success', 'Staff berhasil diperbarui.');
     }
 
     public function destroy(User $staff)
     {
-        if ($staff->role !== 'staff') {
-            abort(404);
-        }
-
         $staff->delete();
-        return redirect()->route('admin.staffs.index')->with('success', 'Staff berhasil dihapus');
+        return redirect()->route('admin.staffs.index')->with('success', 'Staff berhasil dihapus.');
     }
 }
