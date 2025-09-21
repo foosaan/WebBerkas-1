@@ -23,7 +23,6 @@
     <div class="min-h-screen relative overflow-hidden">
         <!-- Background Image -->
         <div class="absolute inset-0 z-0">
-            <!-- Ganti dengan foto kantor KPPN Yogyakarta yang sebenarnya -->
             <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80"
                 alt="Kantor KPPN Yogyakarta" class="w-full h-full object-cover">
             <!-- Overlay untuk readability -->
@@ -87,7 +86,7 @@
                     </p><br>
 
 
-                    <!-- <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <!--<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
                         <a href="#layanan"
                             class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg rounded-lg transition-colors duration-300 inline-block">
                             Layanan Online
@@ -96,7 +95,7 @@
                             class="px-8 py-4 bg-transparent border border-white text-white hover:bg-white hover:text-gray-900 text-lg rounded-lg transition-colors duration-300 inline-block">
                             Informasi Layanan
                         </a>
-                    </div> -->
+                    </div>-->
                 </div>
             </div>
 
@@ -155,14 +154,14 @@
                 <div class="max-w-7xl mx-auto px-6 py-6 lg:px-8">
                     <div class="flex flex-col md:flex-row justify-between items-center text-white">
                         <div class="mb-4 md:mb-0">
-                            <p class="text-sm text-gray-200">© 2024 KPPN Yogyakarta. Semua hak dilindungi undang-undang.
+                            <p class="text-sm text-gray-200">© 2025 KPPN Yogyakarta. Semua hak dilindungi undang-undang.
                             </p>
                         </div>
-                        <!-- <div class="flex space-x-6 text-sm">
-                            <a href="#" class="text-gray-200 hover:text-white transition-colors">Kontak</a>
+                        <div class="flex space-x-6 text-sm">
+                            <a href="https://wa.me/+6281225487266" class="text-gray-200 hover:text-white transition-colors">Kontak</a>
                             <a href="#" class="text-gray-200 hover:text-white transition-colors">Bantuan</a>
                             <a href="#" class="text-gray-200 hover:text-white transition-colors">Kebijakan Privasi</a>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
             </footer>

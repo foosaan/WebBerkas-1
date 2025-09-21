@@ -35,8 +35,8 @@
     </div>
 
     <div class="mb-3">
-        <label>Email <small>(boleh kosong)</small></label>
-        <input type="email" name="email" class="form-control" value="{{ old('email') }}">
+        <label>Email </label>
+        <input type="email" name="email" class="form-control"required value="{{ old('email') }}">
     </div>
 
     <div class="mb-3">

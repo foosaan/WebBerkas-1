@@ -66,7 +66,7 @@
                             @error('file_upload'))
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <div class="form-text">Format: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG</div>
+                            <div class="form-text">Format file yang didukung: PDF, DOC, DOCX, XLS, XLSX, JPG, PNG</div>
                         </div>
 
                         <div class="d-grid gap-2">

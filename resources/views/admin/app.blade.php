@@ -90,7 +90,7 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Apakah anda yakin ingin logout?</div>
+                    <div class="modal-body">Apakah anda ingin logout?</div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" type="button"
                             data-dismiss="modal">Kembali</button>

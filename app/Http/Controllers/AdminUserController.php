@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {
-    // ======================== CRUD ADMIN ===========================
+    // crud admin
     public function index()
     {
         $admins = User::where('role', 'admin')->get();
@@ -16,7 +16,7 @@ class AdminUserController extends Controller
         return view('admin.admins.index', compact('admins', 'adminCount'));
     }
 
-    public function create()
+    public function create() //function untuk membuat admin
     {
         return view('admin.admins.create');
     }
@@ -44,13 +44,13 @@ class AdminUserController extends Controller
         return redirect()->route('admin.admins.index')->with('success', 'Admin berhasil ditambahkan.');
     }
 
-    public function edit(string $id)
+    public function edit(string $id) //function untuk mengedit admin
     {
         $admin = User::findOrFail($id);
         return view('admin.admins.edit', compact('admin'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id) //funcition untuk meupdate admin
     {
         $admin = User::findOrFail($id);
 
@@ -80,7 +80,7 @@ class AdminUserController extends Controller
         return redirect()->route('admin.admins.index')->with('success', 'Admin berhasil diperbarui.');
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id) //function untuk mendelate admin
     {
         $admin = User::findOrFail($id);
         $admin->delete();
@@ -88,7 +88,7 @@ class AdminUserController extends Controller
         return redirect()->route('admin.admins.index')->with('success', 'Admin berhasil dihapus.');
     }
 
-    // ======================== CRUD USER ===========================
+    // crud user
     public function indexUser()
     {
         $users = User::where('role', 'user')->get();

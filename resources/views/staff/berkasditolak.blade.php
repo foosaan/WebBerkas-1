@@ -27,8 +27,10 @@
         {{-- VERA --}}
         @if($divisi === 'VERA')
         <div class="tab-pane fade show active" id="vera" role="tabpanel">
-            @includeWhen(isset($veraRequests), 'staff._table', ['requests' => $veraRequests, 'jenis' => 'vera'])
+             @includeWhen(isset($veraRequests), 'staff._table', ['requests' => $veraRequests, 'jenis' => 'vera'])
         </div>
+
+        
 
         {{-- PD --}}
         @elseif($divisi === 'PD')
