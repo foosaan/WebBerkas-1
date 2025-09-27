@@ -84,18 +84,6 @@
                         Kantor Pelayanan Perbendaharaan Negara Yogyakarta melayani kebutuhan administrasi keuangan
                         negara dengan profesional dan terpercaya.
                     </p><br>
-
-
-                    <!--<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <a href="#layanan"
-                            class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg rounded-lg transition-colors duration-300 inline-block">
-                            Layanan Online
-                        </a>
-                        <a href="#informasi"
-                            class="px-8 py-4 bg-transparent border border-white text-white hover:bg-white hover:text-gray-900 text-lg rounded-lg transition-colors duration-300 inline-block">
-                            Informasi Layanan
-                        </a>
-                    </div>-->
                 </div>
             </div>
 

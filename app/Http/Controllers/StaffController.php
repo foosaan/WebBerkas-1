@@ -29,7 +29,7 @@ class StaffController extends Controller
                                     ->concat($mskiRequests)
                                     ->concat($bankRequests);
 
-        $perPage = 5;
+        $perPage = 15; //mengatur jumlah table yang di munculkan
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems = $allRequests->slice(($currentPage - 1) * $perPage, $perPage)->values();
 

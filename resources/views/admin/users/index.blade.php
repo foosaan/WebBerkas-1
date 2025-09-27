@@ -48,7 +48,7 @@
                                 <td style="text-align: center;">{{ $user->created_at->format('d-m-Y') }}</td>
                                 <td style="text-align: center;">
                                     <div class="btn-group" role="group">
-                                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-warning"style="background-color: #ffc107; color: #212529; border-radius: 4px; padding: 6px 12px; margin-right: 5px; text-decoration: none; font-size: 12px;">Edit</a>
                                         <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Hapus user ini?')" style="display:inline-block;">
                                             @csrf
                                             @method('DELETE')

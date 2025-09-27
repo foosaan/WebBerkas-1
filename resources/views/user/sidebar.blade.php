@@ -30,8 +30,7 @@
         Layanan
     </div>
 
-
-    <!-- nav item kelola admin -->
+    <!-- nav item kelola -->
     <li class="nav-item">
     <a class="nav-link" href="{{ route('vera.create') }}">
         <i class="fas fa-fw fa-users"></i>
@@ -39,14 +38,12 @@
     </a>
 </li>
 
-
     <li class="nav-item {{ request()->routeIs('bank.create') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('bank.create') }}">
         <i class="fas fa-fw fa-users"></i>
         <span>Layanan Bank</span>
     </a>
 </li>
-
 
     <!-- mski -->
     <li class="nav-item {{ request()->routeIs('mski.create') ? 'active' : '' }}">
@@ -56,19 +53,12 @@
     </a>
 </li>
 
-
     <li class="nav-item {{ request()->routeIs('pd.create') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('pd.create') }}">
         <i class="fas fa-fw fa-users"></i>
         <span>Layanan PD</span>
     </a>
 </li>
-
-
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
     
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
