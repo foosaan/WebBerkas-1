@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bank;
+use App\Models\Layanan;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -11,14 +12,11 @@ class BankController extends Controller
 {
     public function create()
     {
-        $jenis_layanan = [
-            'LAYANAN KONFIRMASI PENERIMAAN',
-            'LAPORAN SALDO REKENING',
-            'BAR REKENING MILIK SATKER LINGKUP K/L',
-            'RETUR',
-            'KOREKSI PENERIMAAN',
-            'KONFIRMASI SETORAN'
-        ];
+        // Ambil layanan BANK dari tabel layanans
+        $jenis_layanan = Layanan::where('layanan_type', 'Bank')
+            ->where('is_active', true)
+            ->pluck('jenis_layanan')
+            ->toArray();
 
         return view('user.layanan-bank.create', [
             'jenis_layanan' => $jenis_layanan,
@@ -31,13 +29,15 @@ class BankController extends Controller
     {
         $request->validate([
             'id_satker' => 'required|string',
-            'jenis_layanan' => 'required|string',
+            'jenis_layanan' => 'required|string|exists:layanans,jenis_layanan',
             'keterangan' => 'required|string',
             'file_upload' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,png|max:2048',
         ]);
 
+        // Upload file
         $filePath = $request->file('file_upload')->store('uploads/layanan', 'public');
 
+        // Generate nomor berkas unik
         $today = Carbon::now()->format('Ymd');
         $jumlahHariIni = Bank::whereDate('created_at', Carbon::today())->count() + 1;
         $noBerkas = 'BANK-' . $today . '-' . str_pad($jumlahHariIni, 3, '0', STR_PAD_LEFT);

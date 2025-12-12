@@ -52,6 +52,18 @@
         </a>
     </li>
 
+    <div class="sidebar-heading">
+        Manajement Layanan
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item {{ request()->routeIs('admin.layanan.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.layanan.index') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Kelola Layanan</span>
+        </a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

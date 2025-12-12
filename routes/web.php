@@ -12,6 +12,7 @@ use App\Http\Controllers\VeraController;
 use App\Http\Controllers\MskiController;
 use App\Http\Controllers\PdController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\KelolaLayananController;
 
 // ==================== HALAMAN AWAL ====================
 Route::get('/', function () {
@@ -53,13 +54,13 @@ Route::middleware('auth')->group(function () {
     });
 
     // ===== STAFF PROFILE =====
-Route::middleware(['auth', 'role:staff'])->group(function () {
-    Route::get('/staff/profile', [ProfileController::class, 'editStaffProfile'])->name('staff.profile.edit');
-    Route::patch('/staff/profile', [ProfileController::class, 'updateStaffProfile'])->name('staff.profile.update');
+    Route::middleware(['auth', 'role:staff'])->group(function () {
+        Route::get('/staff/profile', [ProfileController::class, 'editStaffProfile'])->name('staff.profile.edit');
+        Route::patch('/staff/profile', [ProfileController::class, 'updateStaffProfile'])->name('staff.profile.update');
 
-    // Dashboard Staff
-    Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
-});
+        // Dashboard Staff
+        Route::get('/staff/dashboard', [StaffController::class, 'dashboard'])->name('staff.dashboard');
+    });
 
 
     // ===== DELETE ACCOUNT =====
@@ -76,6 +77,21 @@ Route::middleware(['auth', 'role:staff'])->group(function () {
 
         // CRUD Staff
         Route::resource('/admin/staffs', AdminStaffController::class)->names('admin.staffs');
+
+        // CRUD Layanan
+        Route::resource('/admin/layanan', KelolaLayananController::class)
+            ->names('admin.layanan');
+
+        // Route tambahan untuk toggle status
+
+        Route::post('/admin/layanan/{layanan}/toggle', [KelolaLayananController::class, 'toggleStatus'])
+            ->name('admin.layanan.toggle');
+
+
+
+        // Route tambahan untuk toggle status
+        Route::post('layanan/{layanan}/toggle', [KelolaLayananController::class, 'toggleStatus'])
+            ->name('layanan.toggle');
 
         // CRUD User (role: user)
         Route::get('/admin/users', [AdminUserController::class, 'indexUser'])->name('admin.users.index');

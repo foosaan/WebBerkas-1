@@ -54,6 +54,7 @@
                                 <div class="p-5">
                                     <div class="text-center mb-4">
                                         <h1 class="h4 text-gray-900">Login Akun</h1>
+
                                     </div>
 
                                     {{-- Form login dengan route Breeze --}}
@@ -87,16 +88,16 @@
 
                                     <hr>
 
-                                    @if (Route::has('password.request'))
+                                    <!-- @if (Route::has('password.request'))
                                         <div class="text-center">
                                             <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
                                         </div>
-                                    @endif
+                                    @endif -->
 
                                     {{-- @if (Route::has('register'))
-                                        <div class="text-center">
-                                            <a class="small" href="{{ route('register') }}">Create an Account!</a>
-                                        </div>
+                                    <div class="text-center">
+                                        <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                                    </div>
                                     @endif --}}
 
                                 </div>
