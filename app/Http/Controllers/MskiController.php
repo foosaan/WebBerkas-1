@@ -36,7 +36,7 @@ class MskiController extends Controller
             'id_satker' => 'required|string',
             'jenis_layanan' => 'required|string',
             'keterangan' => 'required|string',
-            'file_upload' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,png|max:2048',
+            'file_upload' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,png',
         ]);
 
         $filePath = $request->file('file_upload')->store('uploads/layanan', 'public');

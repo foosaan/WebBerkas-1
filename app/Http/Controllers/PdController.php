@@ -31,7 +31,7 @@ class PdController extends Controller
             'id_satker' => 'required|string',
             'jenis_layanan' => 'required|string|exists:layanans,jenis_layanan',
             'keterangan' => 'required|string',
-            'file_upload' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,png|max:2048',
+            'file_upload' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,png',
         ]);
 
         // Upload file

@@ -31,11 +31,13 @@ class BankController extends Controller
             'id_satker' => 'required|string',
             'jenis_layanan' => 'required|string|exists:layanans,jenis_layanan',
             'keterangan' => 'required|string',
-            'file_upload' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,png|max:2048',
+            'file_upload' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,png',
         ]);
 
         // Upload file
-        $filePath = $request->file('file_upload')->store('uploads/layanan', 'public');
+        $file = $request->file('file_upload');
+        $filePath = $file->store('uploads/layanan', 'public');
+        $originalFilename = $file->getClientOriginalName(); // Ambil nama file asli
 
         // Generate nomor berkas unik
         $today = Carbon::now()->format('Ymd');
@@ -48,6 +50,7 @@ class BankController extends Controller
             'jenis_layanan' => $request->jenis_layanan,
             'keterangan' => $request->keterangan,
             'file_path' => $filePath,
+            'original_filename' => $originalFilename, // Simpan nama file asli
             'user_id' => Auth::id()
         ]);
 
