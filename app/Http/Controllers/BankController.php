@@ -31,7 +31,10 @@ class BankController extends Controller
             'id_satker' => 'required|string',
             'jenis_layanan' => 'required|string|exists:layanans,jenis_layanan',
             'keterangan' => 'required|string',
-            'file_upload' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,png',
+            'file_upload' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png,zip,rar',
+        ], [
+            'file_upload.mimes' => 'Format file harus PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP, atau RAR',
+
         ]);
 
         // Upload file

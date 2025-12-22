@@ -99,12 +99,15 @@
                                             @method('PUT')
                                             <select name="status" class="form-control form-control-sm"
                                                 onchange="this.form.submit()">
-                                                <option value="baru" {{ $request->status == 'baru' ? 'selected' : '' }}>Baru</option>
+                                                <option value="baru" {{ $request->status == 'baru' ? 'selected' : '' }}>Baru
+                                                </option>
                                                 <option value="diproses" {{ $request->status == 'diproses' ? 'selected' : '' }}>
                                                     Diproses</option>
-                                                <option value="selesai" {{ $request->status == 'selesai' ? 'selected' : '' }}>Selesai
+                                                <option value="selesai" {{ $request->status == 'selesai' ? 'selected' : '' }}>
+                                                    Selesai
                                                 </option>
-                                                <option value="ditolak" {{ $request->status == 'ditolak' ? 'selected' : '' }}>Ditolak
+                                                <option value="ditolak" {{ $request->status == 'ditolak' ? 'selected' : '' }}>
+                                                    Ditolak
                                                 </option>
                                             </select>
                                         </form>
@@ -166,12 +169,15 @@
                                                 @method('PUT')
                                                 <select name="status" class="form-control form-control-sm"
                                                     onchange="this.form.submit()">
-                                                    <option value="baru" {{ $request->status == 'baru' ? 'selected' : '' }}>Baru</option>
+                                                    <option value="baru" {{ $request->status == 'baru' ? 'selected' : '' }}>Baru
+                                                    </option>
                                                     <option value="diproses" {{ $request->status == 'diproses' ? 'selected' : '' }}>
                                                         Diproses</option>
-                                                    <option value="selesai" {{ $request->status == 'selesai' ? 'selected' : '' }}>Selesai
+                                                    <option value="selesai" {{ $request->status == 'selesai' ? 'selected' : '' }}>
+                                                        Selesai
                                                     </option>
-                                                    <option value="ditolak" {{ $request->status == 'ditolak' ? 'selected' : '' }}>Ditolak
+                                                    <option value="ditolak" {{ $request->status == 'ditolak' ? 'selected' : '' }}>
+                                                        Ditolak
                                                     </option>
                                                 </select>
                                             </form>
@@ -234,12 +240,15 @@
                                                 @method('PUT')
                                                 <select name="status" class="form-control form-control-sm"
                                                     onchange="this.form.submit()">
-                                                    <option value="baru" {{ $request->status == 'baru' ? 'selected' : '' }}>Baru</option>
+                                                    <option value="baru" {{ $request->status == 'baru' ? 'selected' : '' }}>Baru
+                                                    </option>
                                                     <option value="diproses" {{ $request->status == 'diproses' ? 'selected' : '' }}>
                                                         Diproses</option>
-                                                    <option value="selesai" {{ $request->status == 'selesai' ? 'selected' : '' }}>Selesai
+                                                    <option value="selesai" {{ $request->status == 'selesai' ? 'selected' : '' }}>
+                                                        Selesai
                                                     </option>
-                                                    <option value="ditolak" {{ $request->status == 'ditolak' ? 'selected' : '' }}>Ditolak
+                                                    <option value="ditolak" {{ $request->status == 'ditolak' ? 'selected' : '' }}>
+                                                        Ditolak
                                                     </option>
                                                 </select>
                                             </form>
@@ -302,12 +311,15 @@
                                                 @method('PUT')
                                                 <select name="status" class="form-control form-control-sm"
                                                     onchange="this.form.submit()">
-                                                    <option value="baru" {{ $request->status == 'baru' ? 'selected' : '' }}>Baru</option>
+                                                    <option value="baru" {{ $request->status == 'baru' ? 'selected' : '' }}>Baru
+                                                    </option>
                                                     <option value="diproses" {{ $request->status == 'diproses' ? 'selected' : '' }}>
                                                         Diproses</option>
-                                                    <option value="selesai" {{ $request->status == 'selesai' ? 'selected' : '' }}>Selesai
+                                                    <option value="selesai" {{ $request->status == 'selesai' ? 'selected' : '' }}>
+                                                        Selesai
                                                     </option>
-                                                    <option value="ditolak" {{ $request->status == 'ditolak' ? 'selected' : '' }}>Ditolak
+                                                    <option value="ditolak" {{ $request->status == 'ditolak' ? 'selected' : '' }}>
+                                                        Ditolak
                                                     </option>
                                                 </select>
                                             </form>
@@ -370,12 +382,15 @@
                                                 @method('PUT')
                                                 <select name="status" class="form-control form-control-sm"
                                                     onchange="this.form.submit()">
-                                                    <option value="baru" {{ $request->status == 'baru' ? 'selected' : '' }}>Baru</option>
+                                                    <option value="baru" {{ $request->status == 'baru' ? 'selected' : '' }}>Baru
+                                                    </option>
                                                     <option value="diproses" {{ $request->status == 'diproses' ? 'selected' : '' }}>
                                                         Diproses</option>
-                                                    <option value="selesai" {{ $request->status == 'selesai' ? 'selected' : '' }}>Selesai
+                                                    <option value="selesai" {{ $request->status == 'selesai' ? 'selected' : '' }}>
+                                                        Selesai
                                                     </option>
-                                                    <option value="ditolak" {{ $request->status == 'ditolak' ? 'selected' : '' }}>Ditolak
+                                                    <option value="ditolak" {{ $request->status == 'ditolak' ? 'selected' : '' }}>
+                                                        Ditolak
                                                     </option>
                                                 </select>
                                             </form>
