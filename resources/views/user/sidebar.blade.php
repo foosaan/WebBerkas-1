@@ -15,11 +15,11 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item {{ request()->routeIs('user.dashboard') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('user.dashboard') }}">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span>
-    </a>
-</li>
+        <a class="nav-link" href="{{ route('user.dashboard') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
 
 
     <!-- Divider -->
@@ -32,34 +32,41 @@
 
     <!-- nav item kelola -->
     <li class="nav-item">
-    <a class="nav-link" href="{{ route('vera.create') }}">
-        <i class="fas fa-fw fa-users"></i>
-        <span>Layanan Vera</span>
-    </a>
-</li>
+        <a class="nav-link" href="{{ route('vera.create') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Layanan Vera</span>
+        </a>
+    </li>
 
     <li class="nav-item {{ request()->routeIs('bank.create') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('bank.create') }}">
-        <i class="fas fa-fw fa-users"></i>
-        <span>Layanan Bank</span>
-    </a>
-</li>
+        <a class="nav-link" href="{{ route('bank.create') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Layanan Bank</span>
+        </a>
+    </li>
 
     <!-- mski -->
     <li class="nav-item {{ request()->routeIs('mski.create') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('mski.create') }}">
-        <i class="fas fa-fw fa-users"></i>
-        <span>Layanan MSKI</span>
-    </a>
-</li>
+        <a class="nav-link" href="{{ route('mski.create') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Layanan MSKI</span>
+        </a>
+    </li>
 
     <li class="nav-item {{ request()->routeIs('pd.create') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('pd.create') }}">
-        <i class="fas fa-fw fa-users"></i>
-        <span>Layanan PD</span>
-    </a>
-</li>
-    
+        <a class="nav-link" href="{{ route('pd.create') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Layanan PD</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ request()->routeIs('umum.create') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('umum.create') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Layanan Umum</span>
+        </a>
+    </li>
+
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 

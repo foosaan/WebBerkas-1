@@ -38,6 +38,7 @@ class KelolaLayananController extends Controller
             'pd' => Layanan::where('layanan_type', 'PD')->count(),
             'mski' => Layanan::where('layanan_type', 'MSKI')->count(),
             'bank' => Layanan::where('layanan_type', 'Bank')->count(),
+            'umum' => Layanan::where('layanan_type', 'Umum')->count(),
             'active' => Layanan::where('is_active', true)->count(),
             'inactive' => Layanan::where('is_active', false)->count(),
         ];
@@ -59,7 +60,7 @@ class KelolaLayananController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'layanan_type' => 'required|in:Vera,PD,MSKI,Bank',
+            'layanan_type' => 'required|in:Vera,PD,MSKI,Bank,Umum',
             'jenis_layanan' => 'required|string|max:255|unique:layanans,jenis_layanan',
             'deskripsi' => 'nullable|string|max:150',
         ], [
@@ -92,7 +93,7 @@ class KelolaLayananController extends Controller
     public function update(Request $request, Layanan $layanan)
     {
         $validated = $request->validate([
-            'layanan_type' => 'required|in:Vera,PD,MSKI,Bank',
+            'layanan_type' => 'required|in:Vera,PD,MSKI,Bank,Umum',
             'jenis_layanan' => 'required|string|max:255|unique:layanans,jenis_layanan,' . $layanan->id,
             'deskripsi' => 'nullable|string|max:150',
         ], [

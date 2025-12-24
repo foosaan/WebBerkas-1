@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('layanans', function (Blueprint $table) {
-            $table->enum('layanan_type', ['Vera', 'PD', 'MSKI', 'Bank'])->after('id');
+            $table->enum('layanan_type', ['Vera', 'PD', 'MSKI', 'Bank', 'Umum'])->after('id');
             $table->string('jenis_layanan')->unique()->after('layanan_type');
             $table->text('deskripsi')->nullable()->after('jenis_layanan');
             $table->boolean('is_active')->default(true)->after('deskripsi');

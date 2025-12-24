@@ -53,6 +53,7 @@
                             <option value="PD" {{ old('layanan_type') == 'PD' ? 'selected' : '' }}>PD</option>
                             <option value="MSKI" {{ old('layanan_type') == 'MSKI' ? 'selected' : '' }}>MSKI</option>
                             <option value="Bank" {{ old('layanan_type') == 'Bank' ? 'selected' : '' }}>Bank</option>
+                            <option value="Umum" {{ old('layanan_type') == 'Umum' ? 'selected' : '' }}>Umum</option>
                         </select>
                         @error('layanan_type')
                         <div class="invalid-feedback">{{ $message }}</div>

@@ -8,10 +8,10 @@
                 <i class="fas fa-cogs"></i> Kelola Layanan
                 @if(isset($filterType) && $filterType)
                         <span class="badge badge-{{ 
-                                $filterType == 'Vera' ? 'info' :
+                                            $filterType == 'Vera' ? 'info' :
                     ($filterType == 'PD' ? 'warning' :
                         ($filterType == 'MSKI' ? 'success' : 'primary')) 
-                            }}">
+                                        }}">
                             {{ $filterType }}
                         </span>
                 @endif
@@ -131,6 +131,7 @@
                             <option value="PD" {{ request('type') == 'PD' ? 'selected' : '' }}>Layanan PD</option>
                             <option value="MSKI" {{ request('type') == 'MSKI' ? 'selected' : '' }}>Layanan MSKI</option>
                             <option value="Bank" {{ request('type') == 'Bank' ? 'selected' : '' }}>Layanan Bank</option>
+                            <option value="Umum" {{ request('type') == 'Umum' ? 'selected' : '' }}>Layanan Umum</option>
                         </select>
                     </div>
                     <div class="col-md-3 mb-3">

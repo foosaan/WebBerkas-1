@@ -8,6 +8,7 @@ use App\Models\Vera;
 use App\Models\LayananPd;
 use App\Models\Mski;
 use App\Models\Bank;
+use App\Models\Umum;
 use Illuminate\Support\Collection;
 
 class UserController extends Controller
@@ -18,9 +19,10 @@ class UserController extends Controller
 
         // Ambil data dari masing-masing model hanya milik user yang sedang login
         $veraRequests = Vera::where('id_satker', $nip)->latest()->get();
-        $pdRequests   = LayananPd::where('id_satker', $nip)->latest()->get();
+        $pdRequests = LayananPd::where('id_satker', $nip)->latest()->get();
         $mskiRequests = Mski::where('id_satker', $nip)->latest()->get();
         $bankRequests = Bank::where('id_satker', $nip)->latest()->get();
+        $umumRequests = Umum::where('id_satker', $nip)->latest()->get();
 
         // Gabungkan semua data untuk tab "Semua"
         $allRequests = new Collection();
@@ -42,6 +44,11 @@ class UserController extends Controller
 
         $bankRequests->each(function ($item) use ($allRequests) {
             $item->layanan_type = 'BANK';
+            $allRequests->push($item);
+        });
+
+        $umumRequests->each(function ($item) use ($allRequests) {
+            $item->layanan_type = 'UMUM';
             $allRequests->push($item);
         });
 

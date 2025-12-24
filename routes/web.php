@@ -12,6 +12,7 @@ use App\Http\Controllers\VeraController;
 use App\Http\Controllers\MskiController;
 use App\Http\Controllers\PdController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\UmumController;
 use App\Http\Controllers\KelolaLayananController;
 
 // ==================== HALAMAN AWAL ====================
@@ -131,6 +132,10 @@ Route::middleware('auth')->group(function () {
         // Layanan Bank
         Route::get('/user/layanan-bank/create', [BankController::class, 'create'])->name('bank.create');
         Route::post('/user/layanan-bank', [BankController::class, 'store'])->name('bank.store');
+
+        // Layanan Umum
+        Route::get('/user/layanan-umum/create', [UmumController::class, 'create'])->name('umum.create');
+        Route::post('/user/layanan-umum', [UmumController::class, 'store'])->name('umum.store');
     });
 
     // ==================== LOGOUT ====================
